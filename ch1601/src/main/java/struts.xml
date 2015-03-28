@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.custom.i18n.resources" value="ApplicationResources" />
+	<constant name="struts.multipart.saveDir" value="d:\\temp" />
+	<constant name="struts.multipart.maxSize" value="1024000" />
+
+	<package name="default" extends="struts-default">
+		<interceptors>
+			<!-- 定义download拦截器 -->
+			<interceptor name="download"
+				class="org.sunxin.struts2.interceptor.FileDownloadInterceptor" />
+		</interceptors>
+
+		<action name="upload" class="org.sunxin.struts2.action.FileUploadAction">
+			<interceptor-ref name="defaultStack">
+				<param name="fileUpload.maximumSize">10240000</param>
+				<param name="fileUpload.allowedTypes">
+					image/gif,image/jpeg
+				</param>
+			</interceptor-ref>
+
+			<result name="input">/upload.jsp</result>
+			<result name="success">/success.jsp</result>
+			<param name="uploadDir">/WEB-INF/UploadFiles</param>
+		</action>
+
+		<action name="multiFileUpload" class="org.sunxin.struts2.action.MultiFileUploadAction">
+			<result name="input">/multiFileUpload.jsp</result>
+			<result name="success">/multiFileSuccess.jsp</result>
+			<param name="uploadDir">/WEB-INF/UploadFiles</param>
+		</action>
+
+		<action name="download" class="org.sunxin.struts2.action.FileDownloadAction">
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="download" />
+			<!-- 指定下载文件的路径，该路径相对于Web应用程序所在的目录 -->
+			<param name="inputPath">/WEB-INF/UploadFiles/1206952291296.zip</param>
+			<!-- 使用StreamResult结果类型 -->
+			<result name="success" type="stream">
+				<!-- 指定下载文件的内容类型 -->
+				<!-- <param name="contentType">application/zip</param> -->
+				<!-- inputName默认值是inputStream，如果action中用于读取下载文件内容的属性名 是inputStream，那么可以省略这个参数 -->
+				<param name="inputName">inputStream</param>
+				<!-- <param name="contentDisposition">filename="commons-fileupload.zip"</param> -->
+				<param name="bufferSize">2048</param>
+			</result>
+		</action>
+	</package>
+</struts>
