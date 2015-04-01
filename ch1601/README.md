@@ -2,8 +2,9 @@
 All 
 
 访问URL：
-1、单文件上传：http://localhost:8080/ch1601/upload.jsp
-2、多文件上传：http://localhost:8080/ch1601/multiFileUpload.jsp
+
+- 1、单文件上传：http://localhost:8080/ch1601/upload.jsp
+- 2、多文件上传：http://localhost:8080/ch1601/multiFileUpload.jsp
 
 
 ![](https://github.com/CoderDream/SunXinStruts2/blob/master/ch1601/doc/snap/160101.png)

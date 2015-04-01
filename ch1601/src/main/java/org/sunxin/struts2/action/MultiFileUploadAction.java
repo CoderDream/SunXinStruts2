@@ -96,14 +96,14 @@ public class MultiFileUploadAction extends ActionSupport {
 					if (null != bis)
 						bis.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					e.printStackTrace();// TODO
 				}
 
 				try {
 					if (null != bos)
 						bos.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					e.printStackTrace();// TODO
 				}
 			}
 		}

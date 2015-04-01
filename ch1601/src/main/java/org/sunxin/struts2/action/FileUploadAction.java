@@ -112,7 +112,7 @@ public class FileUploadAction extends ActionSupport {
                 if (null != bis)
                     bis.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                e.printStackTrace();// TODO
             }
 
             try {
@@ -120,7 +120,7 @@ public class FileUploadAction extends ActionSupport {
                     bos.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                e.printStackTrace();// TODO
             }
         }
         return SUCCESS;
