@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 指定校验配置文件的DTD信息 -->
+<!DOCTYPE validators PUBLIC 
+"-//Apache Struts//XWork Validator 1.0.2//EN" 
+"http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+<validators>
+    <field name="user">
+        <field-validator type="visitor">
+            <param name="appendPrefix">true</param>
+            <message>User: </message>
+        </field-validator>
+    </field>
+
+    <!-- 针对user.verifyPassword字段的验证规则 -->
+    <field name="verifyPassword">
+        <field-validator type="requiredstring">
+            <message key="error.verifyPassword.required" />
+        </field-validator>
+        <!-- 使用fieldexpression验证器 -->
+        <field-validator type="fieldexpression">
+            <!-- 使用OGNL表达式来判断确认密码和密码的一致性 -->
+            <param name="expression">verifyPassword == user.password</param>
+            <message key="error.verifyPassword.identical"></message>
+        </field-validator>
+    </field>
+
+    <!-- 针对validationCode字段的验证规则 -->
+    <field name="validationCode">
+        <field-validator type="requiredstring">
+            <message key="error.validationCode.required" />
+        </field-validator>
+
+        <field-validator type="fieldexpression">
+            <!-- 通过param元素向验证器实例设置sessionValidationCode属性 -->
+            <!-- equals 相等 -->
+            <!-- equalsIgnoreCase 相等但忽略大小写 -->
+            <param name="expression">#session.validationCode.equalsIgnoreCase
+                (validationCode)</param>
+            <message key="error.validationCode.invalid" />
+        </field-validator>
+    </field>
+</validators>

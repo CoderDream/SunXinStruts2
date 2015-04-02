@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 指定校验配置文件的DTD信息 -->
+<!DOCTYPE validators PUBLIC 
+"-//Apache Struts//XWork Validator 1.0.2//EN" 
+"http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+
+<validators>
+    <!-- 针对username属性的验证规则 -->
+    <field name="username">
+        <!-- 使用requiredstring验证器，确保username属性不为null，也不为"" -->
+        <field-validator type="requiredstring">
+            <message key="error.username.required" />
+        </field-validator>
+        <!-- 使用stringlength验证器，确保username属性的字符长度在4到12之间 -->
+        <field-validator type="stringlength">
+            <!-- 向stringlength验证器实例传递minLength和maxLength参数 -->
+            <param name="minLength">4</param>
+            <param name="maxLength">12</param>
+            <message key="error.username.length" />
+        </field-validator>
+    </field>
+
+    <!-- 针对password属性的验证规则 -->
+    <field name="password">
+        <field-validator type="requiredstring">
+            <message key="error.password.required" />
+        </field-validator>
+        <field-validator type="stringlength">
+            <param name="minLength">4</param>
+            <param name="maxLength">8</param>
+            <message key="error.password.length" />
+        </field-validator>
+    </field>
+
+    <!-- 针对email属性的验证规则 -->
+    <field name="email">
+        <field-validator type="requiredstring" short-circuit="true">
+            <message key="error.email.required" />
+        </field-validator>
+
+        <!-- 使用email验证器，确保email属性值是合法的邮件地址 -->
+        <field-validator type="email">
+            <message key="error.email.invalid" />
+        </field-validator>
+    </field>
+</validators>
