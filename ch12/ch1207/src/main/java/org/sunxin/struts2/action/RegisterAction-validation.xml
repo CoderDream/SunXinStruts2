@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 指定校验配置文件的DTD信息 -->
+<!DOCTYPE validators PUBLIC 
+"-//Apache Struts//XWork Validator 1.0.2//EN" 
+"http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+<validators>
+    <!-- 针对user.username字段的验证规则 -->
+    <field name="user.username">
+        <!-- 使用requiredstring验证器，确保user.username字段值不为null，也不为"" -->
+        <field-validator type="requiredstring">
+            <message key="error.username.required" />
+        </field-validator>
+        <!-- 使用stringlength验证器，确保user.username字段值的字符长度在4到12之间 -->
+        <field-validator type="stringlength">
+            <!-- 向stringlength验证器实例传递minLength和maxLength参数 -->
+            <param name="minLength">4</param>
+            <param name="maxLength">12</param>
+            <message key="error.username.length" />
+        </field-validator>
+    </field>
+
+    <!-- 针对user.password字段的验证规则 -->
+    <field name="user.password">
+        <field-validator type="requiredstring">
+            <message key="error.password.required" />
+        </field-validator>
+        <field-validator type="stringlength">
+            <param name="minLength">4</param>
+            <param name="maxLength">8</param>
+            <message key="error.password.length" />
+        </field-validator>
+    </field>
+
+    <!-- 针对user.email字段的验证规则 -->
+    <field name="user.email">
+        <field-validator type="requiredstring" short-circuit="true">
+            <message key="error.email.required" />
+        </field-validator>
+
+        <!-- 使用email验证器，确保user.email字段值是合法的邮件地址 -->
+        <field-validator type="email">
+            <message key="error.email.invalid" />
+        </field-validator>
+    </field>
+
+    <!-- 针对user.verifyPassword字段的验证规则 -->
+    <field name="verifyPassword">
+        <field-validator type="requiredstring">
+            <message key="error.verifyPassword.required" />
+        </field-validator>
+        <!-- 使用fieldexpression验证器 -->
+        <field-validator type="fieldexpression">
+            <!-- 使用OGNL表达式来判断确认密码和密码的一致性 -->
+            <param name="expression">verifyPassword == user.password</param>
+            <message key="error.verifyPassword.identical"></message>
+        </field-validator>
+    </field>
+
+    <!-- 针对validationCode字段的验证规则 -->
+    <field name="validationCode">
+        <field-validator type="requiredstring">
+            <message key="error.validationCode.required" />
+        </field-validator>
+        <field-validator type="validationCodeValidator">
+            <!-- 通过param元素向验证器实例设置sessionValidationCode属性 -->
+            <param name="sessionValidationCode">#session.validationCode</param>
+            <message key="error.validationCode.invalid" />
+        </field-validator>
+    </field>
+</validators>
